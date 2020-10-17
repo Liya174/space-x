@@ -3,7 +3,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import Header from './components/Header/header';
 import Home from './components/Home/Home';
-import Main from './components/Main/main';
 import Features from './components/Features/features';
 import Calendar from './components/Calendar/calendar';
 import Details from './components/Details/details';
@@ -55,22 +54,17 @@ class App extends React.Component {
       <BrowserRouter>
         <Header rockets={this.state.rockets} changeRocket={this.changeRocket} />
         
-        <Route exact path='/'>
-          {this.state.company && <Home company={this.state.company}/>}
-        </Route>
+        <Route exact 
+          path='/' 
+          render={() => this.state.company && <Home company={this.state.company} />} />
         
-        <Route path='/rocket'>
-          <Main rocket={this.state.rocket} />
-          {this.state.rocketFeatures && <Features {...this.state.rocketFeatures}/>}
-        </Route>
+        <Route 
+          path='/rocket'
+          render={() => this.state.rocketFeatures && <Features {...this.state.rocketFeatures} />} />
 
-        <Route path='/calendar'>
-          <Calendar />
-        </Route>
+        <Route path='/calendar' component={Calendar} />
 
-        <Route path='/details'>
-          <Details />
-        </Route>
+        <Route path='/details/:id' component={Details} />
 
         {this.state.company && <Footer {...this.state.company.links}/>}
       </BrowserRouter> 
